@@ -1,10 +1,9 @@
 
 class ValidationError < StandardError
+  attr_accessor :model_class_name, :details
 
-  attr_accessor :class_name, :details
-
-  def initialize(class_name, details)
-    @class_name = class_name
+  def initialize(model_class_name, details)
+    @model_class_name = model_class_name
     @details = details
   end
 end

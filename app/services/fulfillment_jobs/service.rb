@@ -1,10 +1,13 @@
 require 'money'
+require 'validation_error'
 
-module FulfillmentJob
+module FulfillmentJobs
   class Service
     def create(printer_id, name, cost)
       job = JobRepository.new.create(printer_id, name, deserialize_money(cost))
       serialize(job)
+    rescue ValidationError => e
+      raise Barrister::RpcException.new(32100, "Business Error", serialize_validation_error(e))
     end
 
     private
@@ -17,12 +20,12 @@ module FulfillmentJob
       { 'cents' => money.cents, 'currency' => money.currency.to_s }
     end
 
-    def serialize_error(error)
-      { klass_name: error.class_name, details: details }.stringify_keys
+    def serialize_validation_error(error)
+      { model_class_name: error.model_class_name, details: error.details }
     end
 
     def serialize(job)
-      job.stringify_keys.merge('cost' => serialize_money(job[:cost]))
+      job.serializable_hash.except("cost_in_cents").merge('cost' => serialize_money(job.cost))
     end
   end
 end

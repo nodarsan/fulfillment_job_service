@@ -11,7 +11,7 @@ struct FulfillmentJob {
     cost Money
 }
 
-interface FulfillmentJobSystem {
+interface FulfillmentJobsSystem {
     create(printer_id int, name string, cost Money) FulfillmentJob
     show_exception() int
     set_cost(cost Money) bool

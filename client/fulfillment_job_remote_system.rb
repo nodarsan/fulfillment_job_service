@@ -9,10 +9,10 @@ class FulfillmentJobRemoteSystem
   end
 
   def create_job(printer_id:, name:, cost:)
-    @client.FulfillmentJobSystem.create(printer_id, name, {"cents" => cost.cents, "currency" => cost.currency.to_s})
+    @client.FulfillmentJobsSystem.create(printer_id, name, {"cents" => cost.cents, "currency" => cost.currency.to_s})
   rescue => e
     if e.code == 32100
-      deserialize_error(e.data)
+      raise deserialize_error(e.data)
     else
       raise e
     end
@@ -21,6 +21,6 @@ class FulfillmentJobRemoteSystem
   private
 
   def deserialize_error(error)
-    ValidationError.new(error.fetch(:class_name), error.fetch(:details))
+    ValidationError.new(error.fetch("model_class_name"), error.fetch("details"))
   end
 end
