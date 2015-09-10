@@ -1,11 +1,10 @@
-require 'barrister'
+require_relative 'fulfillment_job_remote_system'
+require 'money'
 
-trans = Barrister::HttpTransport.new("http://localhost:3000/fulfillment_job")
-client = Barrister::Client.new(trans)
+remote_job_system = FulfillmentJobRemoteSystem.new
 
-puts client.FulfillmentJobSystem.create(2, "name", {"value" => 23})
-
-
-def deserialize_error(error)
-  ValidationError.new(error.class_name, error.details)
+begin
+  puts remote_job_system.create_job(printer_id: 2, name: 2, cost: Money.new(235, 'GBP'))
+rescue => e
+  puts "Unhandled exception: #{e.message}"
 end
