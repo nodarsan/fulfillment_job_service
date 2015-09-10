@@ -1,0 +1,11 @@
+struct FulfillmentJob {
+    id int
+    status string
+    printer_id int
+    cost float
+}
+
+interface FulfillmentJobService {
+    create(printer_id int, name string, cost float) FulfillmentJob
+}
+
