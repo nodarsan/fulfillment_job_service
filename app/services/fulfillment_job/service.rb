@@ -1,13 +1,8 @@
 module FulfillmentJob
   class Service
     def create(printer_id, name, cost)
-      job = {
-          id: 1,
-          printer_id: printer_id,
-          name: name,
-          status: 'active',
-          cost: cost,
-      }
+      job = JobRepository.new.create(printer_id, name, cost)
+
       serialize(job)
     end
 
