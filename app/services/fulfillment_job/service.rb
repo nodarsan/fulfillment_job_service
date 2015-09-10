@@ -2,7 +2,7 @@ require 'money'
 module FulfillmentJob
   class Service
     def create(printer_id, name, cost)
-      job = JobRepository.new.create(printer_id, name, Money.from_amount(cost['value'], cost['currency'] || 'USD')
+      job = JobRepository.new.create(printer_id, name, Money.from_amount(cost['value'], cost['currency'] || 'USD'))
       serialize(job)
     end
 
