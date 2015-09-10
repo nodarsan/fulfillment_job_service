@@ -217,9 +217,11 @@ body .il { color: #666666 }                     /* Literal.Number.Integer.Long *
               
             </td>
             <td class="code">
-              <div class="highlight"><pre><span class="k">struct</span> <span class="gs">Money</span> {
-    <span class="nv">value    </span><span class="kt">float   </span>
-    <span class="nv">currency </span><span class="kt">string   [optional]</span>
+              <div class="highlight"><pre><span class="k">struct</span> <span class="gs">FulfillmentJob</span> {
+    <span class="nv">status     </span><span class="kt">string  </span>
+    <span class="nv">name       </span><span class="kt">string  </span>
+    <span class="nv">printer_id </span><span class="kt">int     </span>
+    <span class="nv">cost       </span><span class="kt">float   </span>
 }</pre></div>
             </td>
           </tr><tr id="section-2">
@@ -230,26 +232,9 @@ body .il { color: #666666 }                     /* Literal.Number.Integer.Long *
               
             </td>
             <td class="code">
-              <div class="highlight"><pre><span class="k">struct</span> <span class="gs">FulfillmentJob</span> {
-    <span class="nv">id         </span><span class="kt">int     </span>
-    <span class="nv">status     </span><span class="kt">string  </span>
-    <span class="nv">name       </span><span class="kt">string  </span>
-    <span class="nv">printer_id </span><span class="kt">int     </span>
-    <span class="nv">cost       </span><span class="kt">Money   </span>
-}</pre></div>
-            </td>
-          </tr><tr id="section-3">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              
-            </td>
-            <td class="code">
               <div class="highlight"><pre><span class="k">interface</span> <span class="gs">FulfillmentJobSystem</span> {
-    <span class="nf">create</span>(<span class="na">printer_id</span> <span class="kt">int</span>, <span class="na">name</span> <span class="kt">string</span>, <span class="na">cost</span> <span class="kt">Money</span>) <span class="kt">FulfillmentJob</span>
+    <span class="nf">create</span>(<span class="na">printer_id</span> <span class="kt">int</span>, <span class="na">name</span> <span class="kt">string</span>, <span class="na">cost</span> <span class="kt">float</span>) <span class="kt">FulfillmentJob</span>
     <span class="nf">show_exception</span>() <span class="kt">int</span>
-    <span class="nf">set_cost</span>(<span class="na">cost</span> <span class="kt">Money</span>) <span class="kt">bool</span>
 }</pre></div>
             </td>
           </tr></tbody>

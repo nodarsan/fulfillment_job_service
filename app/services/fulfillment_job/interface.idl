@@ -1,11 +1,18 @@
+struct Money {
+    value float
+    currency string [optional]
+}
+
 struct FulfillmentJob {
+    id int
     status string
     name string
     printer_id int
-    cost float
+    cost Money
 }
 
 interface FulfillmentJobSystem {
-    create(printer_id int, name string, cost float) FulfillmentJob
+    create(printer_id int, name string, cost Money) FulfillmentJob
+    show_exception() int
+    set_cost(cost Money) bool
 }
-
