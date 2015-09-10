@@ -12,6 +12,10 @@ module FulfillmentJob
 
     private
 
+    def serialize_error(error)
+      { klass_name: error.class_name, details: details }.stringify_keys
+    end
+
     def serialize(job)
       job.merge({cost: {"value": 12}.stringify_keys}).stringify_keys
     end

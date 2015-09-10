@@ -4,3 +4,8 @@ trans = Barrister::HttpTransport.new("http://localhost:3000/fulfillment_job")
 client = Barrister::Client.new(trans)
 
 puts client.FulfillmentJobSystem.create(2, "name", {"value" => 23})
+
+
+def deserialize_error(error)
+  ValidationError.new(error.class_name, error.details)
+end
