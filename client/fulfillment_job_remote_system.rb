@@ -9,7 +9,7 @@ class FulfillmentJobRemoteSystem
   end
 
   def create_job(printer_id:, name:, cost:)
-    @client.FulfillmentJobSystem.create(printer_id, name, {"value" => cost.cents, "currency" => cost.currency.to_s})
+    @client.FulfillmentJobSystem.create(printer_id, name, {"cents" => cost.cents, "currency" => cost.currency.to_s})
   rescue => e
     if e.code == 32100
       deserialize_error(e.data)

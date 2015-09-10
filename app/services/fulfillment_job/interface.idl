@@ -1,5 +1,5 @@
 struct Money {
-    value float
+    cents int
     currency string [optional]
 }
 

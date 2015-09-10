@@ -1,23 +1,28 @@
 require 'money'
+
 module FulfillmentJob
   class Service
     def create(printer_id, name, cost)
-      job = JobRepository.new.create(printer_id, name, Money.from_amount(cost['value'], cost['currency'] || 'USD'))
+      job = JobRepository.new.create(printer_id, name, deserialize_money(cost))
       serialize(job)
     end
 
-    def show_exception
-      raise "Esto es una exception!!"
+    private
+
+    def deserialize_money(money)
+      Money.new(money['cents'], money['currency'] || 'USD')
     end
 
-    private
+    def serialize_money(money)
+      { 'cents' => money.cents, 'currency' => money.currency.to_s }
+    end
 
     def serialize_error(error)
       { klass_name: error.class_name, details: details }.stringify_keys
     end
 
     def serialize(job)
-      job.merge({cost: {"value": 12}.stringify_keys}).stringify_keys
+      job.stringify_keys.merge('cost' => serialize_money(job[:cost]))
     end
   end
 end
